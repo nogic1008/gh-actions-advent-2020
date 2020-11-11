@@ -5,7 +5,7 @@ on:
     inputs:
       name:
         description: '契約書だよ。そこに名前を書きな。'
-        required: true
+        required: false
 
 jobs:
   keiyaku:
@@ -14,6 +14,7 @@ jobs:
       - name: フン。${{ github.event.inputs.name }}というのかい。贅沢な名だねぇ。
         id: rnd
         run: |
+          set -eu
           name=${{ github.event.inputs.name }}
           random=$[RANDOM % ${#name}]
           echo "::set-output name=new_name::${name:random:1}"
