@@ -1,0 +1,25 @@
+name: 湯婆婆
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: '契約書だよ。そこに名前を書きな。'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Response
+        run: echo "::debug::フン。${{ github.event.inputs.name }}というのかい。贅沢な名だねぇ。"
+      - name: Create New Name
+        id: rnd
+        run: |
+          name=${{ github.event.inputs.name }}
+          random=$[RANDOM % ${#name}]
+          echo "::set-output name=new_name::${name:random:1}"
+      - name: Return Created Name
+        run: |
+          new_name=${{ steps.rnd.outputs.new_name }}
+          echo "::debug::今からお前の名前は${new_name}だ。いいかい、${new_name}だよ。分かったら返事をするんだ、${new_name}!!"
