@@ -17,6 +17,6 @@ jobs:
           set -eu
           name='${{ github.event.inputs.name }}'
           random=$[RANDOM % ${#name}]
-          echo '::set-output name=new_name::${name:random:1}'
+          echo ::set-output name=new_name::${name:random:1}
       - name: 今からお前の名前は${{ steps.rnd.outputs.new_name }}だ。いいかい、${{ steps.rnd.outputs.new_name }}だよ。分かったら返事をするんだ、${{ steps.rnd.outputs.new_name }}!!
         run: echo '::debug::Convert ${{ github.event.inputs.name }} to ${{ steps.rnd.outputs.new_name }}.'
