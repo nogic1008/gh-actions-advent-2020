@@ -11,13 +11,17 @@ jobs:
   keiyaku:
     runs-on: ubuntu-latest
     steps:
-      - name: フン。${{ github.event.inputs.name }}というのかい。贅沢な名だねぇ。
+      - name: フン。****というのかい。贅沢な名だねぇ。
         id: rnd
         run: |
           set -eu
-          name='${{ github.event.inputs.name }}'
+          name=$(jq -r '.inputs.name' $GITHUB_EVENT_PATH)
           echo "::add-mask::$name"
           random=$[RANDOM % ${#name}]
           echo ::set-output name=new_name::${name:random:1}
+          echo "ありがとう 千尋。僕の名前は「$name」" > hidden_name.txt
       - name: 今からお前の名前は${{ steps.rnd.outputs.new_name }}だ。いいかい、${{ steps.rnd.outputs.new_name }}だよ。分かったら返事をするんだ、${{ steps.rnd.outputs.new_name }}!!
-        run: echo '::debug::Convert ${{ github.event.inputs.name }} to ${{ steps.rnd.outputs.new_name }}.'
+        uses: actions/upload-artifact@v2.2.0
+        with:
+          name: hidden_name
+          path: hidden_name.txt
