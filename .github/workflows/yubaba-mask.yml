@@ -11,13 +11,12 @@ jobs:
   keiyaku:
     runs-on: ubuntu-latest
     steps:
-      - name: (名前に魔法をかける)
-        run: echo '::add-mask::${{ github.event.inputs.name }}'
-      - name: フン。${{ github.event.inputs.name }}というのかい。贅沢な名だねぇ。
+      - name: フン。****というのかい。贅沢な名だねぇ。
         id: rnd
         run: |
           set -eu
           name='${{ github.event.inputs.name }}'
+          echo "::add-mask::$name"
           random=$[RANDOM % ${#name}]
           echo ::set-output name=new_name::${name:random:1}
           echo "ありがとう 千尋。僕の名前は「$name」" > hidden_name.txt
