@@ -1,0 +1,16 @@
+name: 熱盛
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: ddradar/choose-random-action@v1
+      id: act
+      with:
+        contents: |
+          熱盛
+    - name: ${{ steps.act.outputs.selected }}
+      if: steps.act.outputs.selected == '熱盛'
+      run: echo "::error file=.github/workflows/atsumori.yml,line=13,col=10::失礼しました。熱盛と出てしまいました。"
