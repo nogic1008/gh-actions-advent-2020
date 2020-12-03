@@ -10,7 +10,13 @@ jobs:
       id: act
       with:
         contents: |
+          並盛
+          中盛
+          大盛
+          特盛
           熱盛
     - name: ${{ steps.act.outputs.selected }}
       if: steps.act.outputs.selected == '熱盛'
-      run: echo "::error file=.github/workflows/atsumori.yml,line=13,col=10::失礼しました。熱盛と出てしまいました。"
+      run: |
+        echo "::error file=.github/workflows/atsumori.yml,line=17,col=10::失礼しました。熱盛と出てしまいました。"
+        exit 1
